@@ -12,6 +12,8 @@ const (
 	defaultHitChance = "50"
 )
 
+// ClientHandler returns the HttpHandler for the client mode.
+// Simply returns "HIT" or "MISS" on root path "/".
 func ClientHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, hitOrMiss(hitChange()))
 }
