@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	defaultHitChance = 50
+	defaultHitChance = "50"
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -22,18 +22,18 @@ func main() {
 }
 
 func hitChange() int {
+	i, _ := strconv.Atoi(getArgParameter("hit-chance", defaultHitChance))
+	return i
+}
+
+func getArgParameter(name string, defaultValue string) string {
 	argsWithoutProg := os.Args[1:]
-	hitChanceIndex := -1
 	for index, element := range argsWithoutProg {
-		if element == "--hit-chance" {
-			hitChanceIndex = index + 1
+		if element == "--"+name {
+			return argsWithoutProg[index+1]
 		}
 	}
-	if hitChanceIndex != -1 {
-		i, _ := strconv.Atoi(argsWithoutProg[hitChanceIndex])
-		return i
-	}
-	return defaultHitChance
+	return defaultValue
 }
 
 func hitOrMiss(hitChange int) string {
