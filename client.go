@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
-	"os"
 	"strconv"
 )
 
@@ -21,16 +20,6 @@ func ClientHandler(w http.ResponseWriter, r *http.Request) {
 func hitChange() int {
 	i, _ := strconv.Atoi(getArgParameter("hit-chance", defaultHitChance))
 	return i
-}
-
-func getArgParameter(name string, defaultValue string) string {
-	argsWithoutProg := os.Args[1:]
-	for index, element := range argsWithoutProg {
-		if element == "--"+name {
-			return argsWithoutProg[index+1]
-		}
-	}
-	return defaultValue
 }
 
 func hitOrMiss(hitChange int) string {

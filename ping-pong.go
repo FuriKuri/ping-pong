@@ -5,11 +5,17 @@ import (
 )
 
 const (
-	defaultMode = "client"
+	serverMode  = "server"
+	clientMode  = "client"
+	defaultMode = clientMode
 )
 
 func main() {
-	http.HandleFunc("/", ClientHandler)
+	if mode() == serverMode {
+		http.HandleFunc("/", ServerHandler)
+	} else {
+		http.HandleFunc("/", ClientHandler)
+	}
 	http.ListenAndServe(":8080", nil)
 }
 
