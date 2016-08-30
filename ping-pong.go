@@ -16,7 +16,7 @@ func main() {
 	} else {
 		http.HandleFunc("/", ClientHandler)
 	}
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":3000", nil)
 }
 
 func mode() string {

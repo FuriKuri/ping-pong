@@ -8,8 +8,8 @@ import (
 )
 
 const (
-	defaultPingEndpoint = "http://ping:8080/"
-	defaultPongEndpoint = "http://pong:8080/"
+	defaultPingEndpoint = "http://ping:3000/"
+	defaultPongEndpoint = "http://pong:3000/"
 )
 
 // ServerHandler return the HttpFunction for server mode.
@@ -23,23 +23,28 @@ func doGame(w http.ResponseWriter) {
 	for round := 1; round < 100; round++ {
 		pingRound := doRequest(pingEndpoint())
 		if pingRound == hit {
-			fmt.Fprintln(w, "PING --> HIT")
+			logEvent(w, "PING --> HIT")
 			pongRound := doRequest(pongEndpoint())
 			if pongRound == hit {
-				fmt.Fprintln(w, "PONG --> HIT")
+				logEvent(w, "PONG --> HIT")
 			} else {
-				fmt.Fprintln(w, "PONG --> MISS")
-				fmt.Fprintln(w, "The winner is PING")
+				logEvent(w, "PONG --> MISS")
+				logEvent(w, "The winner is PING")
 				return
 			}
 		} else {
-			fmt.Fprintln(w, "PING --> MISS")
-			fmt.Fprintln(w, "The winner is PONG")
+			logEvent(w, "PING --> MISS")
+			logEvent(w, "The winner is PONG")
 			return
 		}
 
 	}
-	fmt.Fprintln(w, "DRAW")
+	logEvent(w, "DRAW")
+}
+
+func logEvent(w http.ResponseWriter, msg string) {
+	log.Println(msg)
+	fmt.Fprintln(w, msg)
 }
 
 func pingEndpoint() string {
