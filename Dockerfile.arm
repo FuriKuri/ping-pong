@@ -1,4 +1,4 @@
-FROM armhf/golang
+FROM armhf/golang:1.6
 RUN mkdir /app 
 ADD . /app/ 
 WORKDIR /app 
