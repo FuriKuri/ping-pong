@@ -9,6 +9,8 @@ import (
 
 const (
 	defaultHitChance = "50"
+	hit              = "HIT"
+	miss             = "MISS"
 )
 
 // ClientHandler returns the HttpHandler for the client mode.
@@ -25,7 +27,7 @@ func hitChange() int {
 func hitOrMiss(hitChange int) string {
 	result := rand.Intn(100) + 1
 	if result > hitChange {
-		return "MISS"
+		return miss
 	}
-	return "HIT"
+	return hit
 }
